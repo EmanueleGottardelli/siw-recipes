@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale = 1.0">
+	<title>SiwRecipes - Operazioni Ricette</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+	<div th:replace="fragments/navbar :: navbar"></div>
+
+	<!-- Contenuto -->
+	<main class="container mt-5">
+		<h1 class="text-center mb-4">Catalogo delle Ricette</h1>
+
+		<div th:if="${#lists.isEmpty(recipes)}" class="alert alert-warning text-center">
+			Non ci sono Ricette nel catalogo!
+		</div>
+
+		<div th:if="${!#lists.isEmpty(recipes)}" class="table-responsive">
+			<table class="table table-striped table-hover shadow-sm">
+				<thead class="table-dark">
+					<tr>
+						<th scope="col">Titolo</th>
+						<th scope="col">Categoria</th>
+						<th scope="col">Difficoltà</th>
+						<th scope="col">Autore</th>
+						<th scope="col" class="text-center">Azioni</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="recipe : ${recipes}">
+						<td th:text="${recipe.title}">Titolo</td>
+						<td th:text="${recipe.category}">Categoria</td>
+						<td th:text="${recipe.difficulty}">Difficoltà</td>
+						<td th:text="${recipe.author.credentials.username}">Username</td>
+						<td class="text-center">
+							<a th:href="@{/recipe/{id}/edit(id=${recipe.id})}"
+								class="btn btn-primary btn-sm  me-2">Aggiorna</a>
+							<form th:action="@{/deleteRecipe/{id}(id=${recipe.id})}" method="post"
+								style="display:inline">
+								<button type="submit" class="btn btn-danger btn-sm">Elimina</button>
+							</form>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<div class="text-center">
+			<a th:href="@{/formNewRecipe}" class="btn btn-primary btn-sm me-2">Aggiungi una ricetta</a>
+		</div>
+	</main>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

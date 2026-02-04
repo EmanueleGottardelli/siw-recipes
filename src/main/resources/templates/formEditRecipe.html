@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Modifica Ricetta</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+	<div class="container mt-5">
+		<h2>Modifica la tua ricetta</h2>
+		<form th:action="@{/recipe/{id}/edit(id=${recipe.id})}" th:object="${recipe}" method="POST">
+			<div class="mb-3">
+				<label for="title" class="form-label">Titolo:</label>
+				<input type="text" id="title" class="form-control" th:field="*{title}"
+					placeholder="Inserisci un nuovo titolo">
+			</div>
+			<div class="mb-3">
+				<label for="category" class="form-label">Categoria:</label>
+				<input type="text" id="category" class="form-control" th:field="*{category}"
+					placeholder="Inserisci una nuova categoria">
+			</div>
+			<div class="mb-3">
+				<label for="description" class="form-label">Descrizione:</label>
+				<input type="text" id="descriprion" class="form-control" th:field="*{description}"
+					placeholder="Inserisci una nuova descrizione">
+			</div>
+			<div class="mb-3">
+				<label for="difficulty" class="form-label">Difficoltà (1–5)</label>
+				<input type="number" id="difficulty" class="form-control" th:field="*{difficulty}" min="1" max="5"
+					placeholder="Difficoltà da 1 a 5">
+			</div>
+			<div class="mb-3">
+				<textarea class="form-control" th:field="*{procedimento}" placeholder="Inserisci un nuovo procedimento..."></textarea>
+			</div>
+			<button type="submit" class="btn btn-primary">Salva</button>
+			<a th:href="@{/recipe/{id}(id=${recipe.id})}" class="btn btn-secondary">Annulla</a>
+		</form>
+	</div>
+</body>
+
+</html>
