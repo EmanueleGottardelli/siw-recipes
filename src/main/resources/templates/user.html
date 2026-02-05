@@ -29,7 +29,8 @@
 					<span th:text="${user.state}">Active</span>
 				</p>
 
-				<a th:href="@{/user/{id}/edit(id=${user.id})}" class="btn btn-sm btn-warning me-2">Modifica il tuo profilo utente</a>
+				<a th:href="@{/user/{id}/edit(id=${user.id})}" class="btn btn-sm btn-warning me-2">Modifica il tuo
+					profilo utente</a>
 
 			</div>
 		</div>
@@ -51,9 +52,9 @@
 						th:href="@{/recipe/{id}/edit(id=${recipe.id})}" class="btn btn-sm btn-warning me-2">Modifica</a>
 
 					<!-- L'autore puo eliminare -->
-					<a th:if="${userDetails != null and recipe.author.credentials.username == userDetails.username}"
-						th:href="@{/recipe/{id}/deleteRecipe(id=${recipe.id})}"
-						class="btn btn-sm btn-danger">Elimina</a>
+					<form th:action="@{/deleteRecipe/{id}(id=${recipe.id})}" method="post" style="display:inline">
+						<button type="submit" class="btn btn-danger btn-sm">Elimina</button>
+					</form>
 				</div>
 			</div>
 		</div>

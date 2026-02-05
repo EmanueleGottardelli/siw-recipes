@@ -37,7 +37,8 @@
 				</p>
 
 				<div th:if="globalUser != null and (recipe.author.id == globalUser.id)">
-					<a th:href="@{/recipe/{id}/edit(id=${recipe.id})}" class="btn btn-primary btn-sm  me-2">Aggiorna ricetta</a>
+					<a th:href="@{/recipe/{id}/edit(id=${recipe.id})}" class="btn btn-primary btn-sm  me-2">Aggiorna
+						ricetta</a>
 				</div>
 
 				<hr class="my-4">
@@ -67,7 +68,6 @@
 							<td th:text="${ing.unitMeasurement}"></td>
 
 							<td class="text-end">
-
 								<!-- elimina solo autore o admin -->
 								<form
 									th:if="${globalUser != null and (recipe.author.id == globalUser.id or globalUser.isAdmin())}"

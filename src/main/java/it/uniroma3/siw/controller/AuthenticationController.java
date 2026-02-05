@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.service.CredentialsService;
+import it.uniroma3.siw.service.RecipeService;
 import it.uniroma3.siw.service.UserService;
 import it.uniroma3.siw.validator.CredentialsValidator;
 import it.uniroma3.siw.validator.UserValidator;
@@ -34,6 +35,9 @@ public class AuthenticationController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private RecipeService recipeService;
 
 	@GetMapping(value = "/register")
 	public String showRegisterForm(Model model) {
@@ -54,15 +58,17 @@ public class AuthenticationController {
 
 		Credentials credentials = credentialsService.getCredentialsByUsername(userDetails.getUsername());
 		if (credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
+			model.addAttribute("recipes", recipeService.getAllRecipe());
 			return "admin/indexAdmin";
 		}
-
+		model.addAttribute("recipes", recipeService.getAllRecipe());
 		return "index";
 	}
 
 	@GetMapping(value = "/")
 	public String index(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		model.addAttribute("recipes", recipeService.getAllRecipe());
 
 		if (authentication instanceof AnonymousAuthenticationToken) {
 			return "index";
